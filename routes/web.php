@@ -25,4 +25,3 @@ Route::post('/product/store', 'ProductsController@store')->name('product.store')
 Route::get('/product/edit/{product}', 'ProductsController@edit')->name('product.edit');
 Route::get('/product/delete/{product}', 'ProductsController@destroy')->name('product.delete');
 Route::post('/product/update/{product}', 'ProductsController@update')->name('product.update');
-

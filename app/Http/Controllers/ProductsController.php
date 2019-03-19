@@ -7,12 +7,6 @@ use Illuminate\Http\Request;
 
 class ProductsController extends Controller
 {
-
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
     /**
      * Display a listing of the resource.
      *
@@ -21,7 +15,8 @@ class ProductsController extends Controller
     public function index()
     {
         $products = Product::all();
-        return view('products.index',compact('products'));
+
+        return view('products.index', compact('products'));
     }
 
     /**
@@ -46,23 +41,23 @@ class ProductsController extends Controller
             'name' => 'required',
             'image' => 'required|image',
             'price' => 'required',
-            'description' => 'required' 
+            'description' => 'required'
         ]);
 
-        $image = $request->image; 
+        $image = $request->image;
 
         $image_new_name = time().$image->getClientOriginalName();
 
         $image->move('uploads/products', $image_new_name);
-        
-        Product::create([
+
+        $product = Product::create([
             'name' => $request->name,
             'image' => 'uploads/products/'.$image_new_name,
             'price' => $request->price,
             'description' => $request->description
         ]);
 
-        session()->flash('success','New product has been added.');
+        session()->flash('success', 'Your product has been saved.');
 
         return redirect()->route('products');
     }
@@ -104,36 +99,24 @@ class ProductsController extends Controller
             'description' => 'required'
         ]);
 
-         $product->name = $request->name;
-         
-         $product->price = $request->price;
-
-         $product->description = $request->description;
-
-         $product->save();
-
-
         if($request->hasFile('image')){
-
-            unlink($product->image);
-
             $image = $request->image;
 
             $image_new_name = time().$image->getClientOriginalName();
 
-            $image->move('uploads/products', $image_new_name);
+            $image->move('uploads/products' ,$image_new_name);
 
             $product->image = 'uploads/products/'.$image_new_name;
 
             $product->save();
+        }
 
-            }
-
-
-            session()->flash('success','Product has been updated');
-
-            return redirect()->route('products');
-
+        $product->name = $request->name;
+        $product->price = $request->price;
+        $product->description = $request->description;
+        $product->save();
+        session()->flash('success', 'Product has been updated');
+        return redirect()->route('products');
     }
 
     /**
@@ -145,7 +128,7 @@ class ProductsController extends Controller
     public function destroy(Product $product)
     {
         $product->delete();
-        session()->flash('success','Product has been deleted');
-        return redirect()->route('products');
+        session()->flash('success', 'Your product has been deleted.');
+        return back();
     }
 }

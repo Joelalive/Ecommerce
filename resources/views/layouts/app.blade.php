@@ -2,6 +2,7 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
     <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- CSRF Token -->
@@ -13,7 +14,7 @@
     <script src="{{ asset('js/app.js') }}" defer></script>
 
     <!-- Fonts -->
-    <link rel="dns-prefetch" href="//fonts.gstatic.com">
+    <link rel="dns-prefetch" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet" type="text/css">
 
     <!-- Styles -->
@@ -26,14 +27,6 @@
                 <a class="navbar-brand" href="{{ url('/') }}">
                     {{ config('app.name', 'Laravel') }}
                 </a>
-                @if(Auth::id())
-                <a class="navbar-brand" href="{{ route('products') }}">
-                Products
-                </a>
-                <a class="navbar-brand" href="{{ route('product.create') }}">
-                New Product
-                </a>
-                @endif
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -51,11 +44,9 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
                             </li>
-                            @if (Route::has('register'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                                </li>
-                            @endif
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                            </li>
                         @else
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
@@ -81,16 +72,23 @@
         </nav>
 
         <main class="py-4">
-        
-        @if(session('success'))
         <div class="container">
-        <div class="alert alert-success">
-        {{session('success')}}
-        </div>
-        </div>
-        @endif
+            <div class="row justify-content-center">
+                @if(Auth::check())
+                <div class="col-md-4">
+                    <ul class="list-group">
+                        <li class="list-group-item"><a href="{{route('products')}}">Products</a></li>
+                        <li class="list-group-item"><a href="{{route('product.create')}}">New Product</a></li>
+                    </ul>
+                </div>
+                @endif
 
-            @yield('content')
+                <div class="col-md-8">
+                @yield('content')
+                </div>
+    
+            </div>
+        </div>
         </main>
     </div>
 </body>
