@@ -11,9 +11,17 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'FrontendController@index')->name('index');
+Route::get('/product/{id}', 'FrontendController@singleProduct')->name('product.single');
+
+Route::post('/cart/add', 'ShoppingController@add_to_cart')->name('cart.add');
+Route::get('/cart', 'ShoppingController@cart')->name('cart');
+Route::get('/cart/delete/{id}', 'ShoppingController@cart_delete')->name('cart.delete');
+Route::get('/cart/incr/{id}/{qty}', 'ShoppingController@incr')->name('cart.incr');
+Route::get('/cart/decr/{id}/{qty}', 'ShoppingController@decr')->name('cart.decr');
+Route::get('/cart/rapid/add/{id}', 'ShoppingController@rapid_add')->name('cart.rapid.add');
+
+Route::get('/cart/checkout', 'CheckoutController@index')->name('cart.checkout');
 
 Auth::routes();
 
@@ -25,3 +33,4 @@ Route::post('/product/store', 'ProductsController@store')->name('product.store')
 Route::get('/product/edit/{product}', 'ProductsController@edit')->name('product.edit');
 Route::get('/product/delete/{product}', 'ProductsController@destroy')->name('product.delete');
 Route::post('/product/update/{product}', 'ProductsController@update')->name('product.update');
+
