@@ -28,7 +28,7 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/products', 'ProductsController@index')->name('products');
-Route::get('/product/create', 'ProductsController@create')->name('product.create');
+Route::get('/products/create', 'ProductsController@create')->name('product.create');
 Route::post('/product/store', 'ProductsController@store')->name('product.store');
 Route::get('/product/edit/{product}', 'ProductsController@edit')->name('product.edit');
 Route::get('/product/delete/{product}', 'ProductsController@destroy')->name('product.delete');
