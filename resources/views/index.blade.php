@@ -10,12 +10,13 @@
                 @foreach($products as $product)
                 <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                     <div class="books-item">
+                    <a href="{{route('product.single',['id' => $product->id])}}">
                         <div class="books-item-thumb">
                             <img src="{{asset($product->image)}}" alt="book">
                             <div class="new">New</div>
                             <div class="sale">Sale</div>
                             <div class="overlay overlay-books"></div>
-                        </div>
+                        </div></a>
 
                         <div class="books-item-info">
                             <a href="{{route('product.single',['id' => $product->id])}}">
