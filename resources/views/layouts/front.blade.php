@@ -3,13 +3,14 @@
 <head lang="en">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <title>Seosight - Shop</title>
+    <title>@yield('title', 'Ecommerce')</title>
 
     <link rel="stylesheet" type="text/css" href="{{asset('app/css/fonts.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('app/css/crumina-fonts.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('app/css/normalize.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('app/css/grid.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('app/css/styles.css')}}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
 
 
     <!--Plugins styles-->
@@ -111,7 +112,15 @@
 <script src="{{asset('app/js/velocity.min.js')}}"></script>
 <script src="{{asset('app/js/ScrollMagic.min.js')}}"></script>
 <script src="{{asset('app/js/animation.velocity.min.js')}}"></script>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+<script>
+@if(session('success'))
+toastr.success('{{session('success')}}');
+@endif
+@if(session('info'))
+toastr.info('{{session('info')}}');
+@endif
+</script>
 <!-- ...end JS Script -->
 
 
